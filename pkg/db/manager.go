@@ -9,14 +9,7 @@ import (
 )
 
 func (dbm *DBManager) Init(cfg *aws.Config, tableName string) {
-	// sess, err := session.NewSession(&aws.Config{
-	// 	Region: aws.String("eu-west-3"), // Specify your AWS region
-	// })
 
-	// sess, err := session.NewSession(&aws.Config{
-	// 	Region:      aws.String("eu-west-3"),
-	// 	Credentials: credentials.NewStaticCredentials("AKIARFMYROC2IDSBYY7B", "lgfcZmI855cn1z93lNk/dWd9t9XAhkH6eXEKSsdW", ""),
-	// })
 	dbm.DynamodbTable = tableName
 
 	var err error
