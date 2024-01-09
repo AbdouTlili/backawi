@@ -19,3 +19,5 @@ terraform.rc
 
 # ignoring local creds file 
 export-creds.sh
+
+src/
