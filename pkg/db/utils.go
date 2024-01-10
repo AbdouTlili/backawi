@@ -113,6 +113,14 @@ func CastDbRawItemToProductObject(item map[string]*dynamodb.AttributeValue) Prod
 		return ProductItem{}
 	}
 
-	// log.Info("Product Price received from db is : ", productItem.Price)
 	return productItem
+}
+
+func CastDbRawItemsListToProductObjectList(items []map[string]*dynamodb.AttributeValue) []ProductItem {
+	productsItemsList := make([]ProductItem, 0)
+	for _, item := range items {
+		productItem := CastDbRawItemToProductObject(item)
+		productsItemsList = append(productsItemsList, productItem)
+	}
+	return productsItemsList
 }

@@ -54,6 +54,9 @@ func main() {
 	app.Init()
 
 	app.DBManager.GetAllItemsInDB()
+	app.DBManager.GetProductWithID("5585")
+	app.DBManager.DeleteProductWithID("5585")
+	app.DBManager.GetAllItemsInDB()
 
 	// app.Run(":8000")
 
