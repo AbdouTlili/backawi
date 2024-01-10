@@ -42,3 +42,23 @@ func (dbm *DBManager) CreateItemInDB(productID string,
 	}
 	return err
 }
+
+func (dbm *DBManager) GetAllItemsInDB() error {
+	input := &dynamodb.ScanInput{
+		TableName: aws.String(dbm.DynamodbTable),
+	}
+
+	// perform the scan to get all the elements
+	result, err := dbm.DynamoServiceClient.Scan(input)
+	if err != nil {
+		log.Warn("Error scanning Dynamodb table ", err)
+		return err
+	}
+
+	log.Info("Received ", *result.Count, " items from DynamoDB")
+	for _, item := range result.Items {
+		productItem := CastDbRawItemToProductObject(item)
+		log.Info(productItem)
+	}
+	return nil
+}

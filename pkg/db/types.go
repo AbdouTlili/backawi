@@ -11,6 +11,14 @@ type DBManager struct {
 	DynamodbTable       string
 }
 
+type ProductItem struct {
+	ProductID string
+	Name      string
+	Quantity  int
+	Discount  float64
+	Price     float64
+}
+
 // type Item struct {
 // 	Product
 // }
