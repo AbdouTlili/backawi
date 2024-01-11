@@ -19,7 +19,11 @@ jobs:
         with:
           go-version: 1.21.4
       - name: check for vars
-        run: echo $AWS_REGION
+        run: |
+          echo $AWS_REGION
+          echo $TEST_AWS_VAR
+          env
+
       - name: Run linting
         run: |
           go fmt ./...
