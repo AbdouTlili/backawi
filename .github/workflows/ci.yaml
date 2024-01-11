@@ -15,9 +15,9 @@ jobs:
           go-version: 1.21.4
       - name: check for vars
         env:
-          AWS_REGION: ${{secrets.AWS_REGION}}
-          DYNAMODB_TABLE_NAME: ${{secrets.DYNAMODB_TABLE_NAME}}
-          TEST_AWS_VAR : ${{env.TEST_AWS_VAR}}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          DYNAMODB_TABLE_NAME: ${{ secrets.DYNAMODB_TABLE_NAME }}
+          TEST_AWS_VAR : ${{ env.TEST_AWS_VAR }}
         run: |
           echo $AWS_REGION
           echo $GOROOT
