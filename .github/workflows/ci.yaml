@@ -40,3 +40,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           DYNAMODB_TABLE_NAME: ${{secrets.DYNAMODB_TABLE_NAME}}
         run: go test ./cmd/
+
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
+
