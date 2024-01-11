@@ -34,4 +34,9 @@ jobs:
           go fmt ./...
           go vet ./...
       - name: Run tests
+        env:
+          AWS_REGION: ${{secrets.AWS_REGION}}
+          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          DYNAMODB_TABLE_NAME: ${{secrets.DYNAMODB_TABLE_NAME}}
         run: go test ./cmd/
