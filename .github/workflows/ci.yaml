@@ -19,8 +19,7 @@ jobs:
           DYNAMODB_TABLE_NAME: ${{secrets.DYNAMODB_TABLE_NAME}}
         run: |
           echo $AWS_REGION
-          echo $AWS_ACCESS_KEY_ID
-          echo $AWS_SECRET_ACCESS_KEY
+          echo $GOROOT
           echo $DYNAMODB_TABLE_NAME
 
       - name: Run linting
