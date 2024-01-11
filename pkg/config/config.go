@@ -1,10 +1,15 @@
 package config
 
-import "os"
+import (
+	"os"
+
+	log "github.com/sirupsen/logrus"
+)
 
 func getEnv(key, defaultValue string) string {
 	value, exists := os.LookupEnv(key)
 	if !exists {
+		log.Warnf("Failed to Lookup the Environment variable %v, loading default value", key)
 		return defaultValue
 	}
 	return value
