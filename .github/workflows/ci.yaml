@@ -20,7 +20,7 @@ jobs:
         run: |
           echo $AWS_REGION
           echo $GOROOT
-          echo $DYNAMODB_TABLE_NAME
+          echo $TEST_AWS_VAR
 
       - name: Run linting
         env:
