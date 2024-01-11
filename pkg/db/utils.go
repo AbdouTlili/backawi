@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"strconv"
 
 	log "github.com/sirupsen/logrus"
@@ -11,9 +12,13 @@ import (
 
 func CreateItem(productID string,
 	productName string,
-	quantity string,
-	discount string,
-	price string) map[string]*dynamodb.AttributeValue {
+	quantity int,
+	discount float64,
+	price float64) map[string]*dynamodb.AttributeValue {
+
+	strQuantity := fmt.Sprintf("%d", quantity)
+	strDiscount := fmt.Sprintf("%f", discount)
+	strPrice := fmt.Sprintf("%f", price)
 
 	item := map[string]*dynamodb.AttributeValue{
 		"ProductID": {
@@ -23,13 +28,13 @@ func CreateItem(productID string,
 			S: aws.String(productName),
 		},
 		"Quantity": {
-			N: aws.String(quantity),
+			N: aws.String(strQuantity),
 		},
 		"Discount": {
-			N: aws.String(discount),
+			N: aws.String(strDiscount),
 		},
 		"Price": {
-			N: aws.String(price),
+			N: aws.String(strPrice),
 		},
 	}
 	return item

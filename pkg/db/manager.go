@@ -25,12 +25,8 @@ func (dbm *DBManager) Init(cfg *aws.Config, tableName string) {
 	dbm.DynamoServiceClient = dynamodb.New(dbm.AwsSession)
 }
 
-func (dbm *DBManager) CreateItemInDB(productID string,
-	productName string,
-	quantity string,
-	discount string,
-	price string) error {
-	item := CreateItem(productID, productName, quantity, discount, price)
+func (dbm *DBManager) CreateItemInDB(productItem ProductItem) error {
+	item := CreateItem(productItem.ProductID, productItem.Name, productItem.Quantity, productItem.Discount, productItem.Price)
 	payload := CreateItemPutPayload(item, dbm.DynamodbTable)
 
 	_, err := dbm.DynamoServiceClient.PutItem(payload)
@@ -62,7 +58,8 @@ func (dbm *DBManager) GetAllItemsInDB() ([]ProductItem, error) {
 	return productItems, nil
 }
 
-func (dbm *DBManager) GetProductWithID(productID string) error {
+func (dbm *DBManager) GetProductWithID(productID string) ([]ProductItem, error) {
+	emptyProduct := []ProductItem{}
 	// Build the input for the Query operation.
 	input := &dynamodb.QueryInput{
 		TableName: aws.String(dbm.DynamodbTable),
@@ -82,14 +79,14 @@ func (dbm *DBManager) GetProductWithID(productID string) error {
 	result, err := dbm.DynamoServiceClient.Query(input)
 	if err != nil {
 		log.Warn("Error scanning Dynamodb table ", err)
-		return err
+		return emptyProduct, err
 	}
 
 	log.Info("Received ", *result.Count, " items from DynamoDB")
 	productItem := CastDbRawItemsListToProductObjectList(result.Items)
 	log.Info(productItem)
 
-	return nil
+	return productItem, nil
 }
 
 func (dbm *DBManager) DeleteProductWithID(productID string) error {
@@ -104,14 +101,13 @@ func (dbm *DBManager) DeleteProductWithID(productID string) error {
 	}
 
 	// perform the scan to get all the elements
-	deleteoutput, err := dbm.DynamoServiceClient.DeleteItem(input)
+	_, err := dbm.DynamoServiceClient.DeleteItem(input)
 	if err != nil {
 		log.Warn("Error Deleting Dynamodb table ", err)
 		return err
 	}
-	log.Info(deleteoutput)
 
-	log.Info("Item with ID :", productID, "successfuly deleted from DynamoDB")
+	log.Info("Item with ID : ", productID, " successfuly deleted from DynamoDB")
 
 	return nil
 }

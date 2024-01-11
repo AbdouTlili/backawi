@@ -12,11 +12,11 @@ type DBManager struct {
 }
 
 type ProductItem struct {
-	ProductID string
-	Name      string
-	Quantity  int
-	Discount  float64
-	Price     float64
+	ProductID string  `json:"ProductID"`
+	Name      string  `json:"Name"`
+	Quantity  int     `json:"Quantity"`
+	Discount  float64 `json:"Discount"`
+	Price     float64 `json:"Price"`
 }
 
 // type Item struct {

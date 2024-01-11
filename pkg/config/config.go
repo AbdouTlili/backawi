@@ -15,7 +15,7 @@ func LoadConfig() *Config {
 		AWSRegion:          getEnv("AWS_REGION", "eu-west-3"),
 		AWSAccessKeyID:     getEnv("AWS_ACCESS_KEY_ID", ""),
 		AWSSecretAccessKey: getEnv("AWS_SECRET_ACCESS_KEY", ""),
-		DynamoDBTableName:  getEnv("DYNAMODB_TABLE_NAME", "my-default-table"),
+		DynamoDBTableName:  getEnv("DYNAMODB_TABLE_NAME", ""),
 	}
 
 	return config
